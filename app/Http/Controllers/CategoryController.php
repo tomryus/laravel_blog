@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        $category = Category::latest()->get();
+        return view('category/index',['yangdikirim' =>$category]);
+        //return response()->json([
+        //    'data' => $category ,
+        //    'pesan'=> 'sukses',
+        // ]);
     }
 
     /**
@@ -24,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Category/create');
     }
 
     /**
@@ -35,7 +41,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        \Validator::make($request->all(),[
+            'nama_category' => "required|min:5|Unique:categories",
+        ])->validate();
+        $category_save =  Category::create([
+            'nama_category' => $request->nama_category,
+            'slug'          => str_slug($request->nama_category)
+        ]);
+
+        return redirect()->
+            route('category.index');
+            
     }
 
     /**
@@ -55,9 +71,10 @@ class CategoryController extends Controller
      * @param  \App\Model\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::findorFail($id);
+        return view('Category/edit',['yangdikirim'=>$category]);
     }
 
     /**
@@ -67,9 +84,14 @@ class CategoryController extends Controller
      * @param  \App\Model\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $slug = str_slug($request->get('nama_category'));
+        $category ->nama_category = $request->get('nama_category');
+        $category ->slug = $slug;
+        $category->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -78,8 +100,15 @@ class CategoryController extends Controller
      * @param  \App\Model\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if(!$category){
+            return redirect()->route('category.index');
+        }else {
+            $category -> Delete();
+            return redirect()->route('category.index');
+        }
+        
     }
 }

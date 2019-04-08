@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SimpleAdminLTE 2 | Blank Page</title>
+    <title>Admin- @yield("title")</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -12,6 +12,8 @@
     <link rel="stylesheet" href={{asset("fonts/font-awesome.min.css")}}>
     <!-- Ionicons -->
     <link rel="stylesheet" href={{asset("fonts/ionicons.min.css")}}>
+
+    @stack('customcss')
     <!-- Theme style -->
     <link rel="stylesheet" href={{asset("dist/css/AdminLTE.min.css")}}>
     <link rel="stylesheet" href={{asset("dist/css/skins/_all-skins.min.css")}}>
@@ -20,6 +22,10 @@
 <body class="hold-transition skin-purple sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
+
+
+
+
 
     <header class="main-header">
         <!-- Logo -->
@@ -40,7 +46,7 @@
             <ul class="nav navbar-nav">
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <img src={{asset("dist/img/user2-160x160.jpg")}} class="user-image" alt="User Image">
                 <span class="hidden-xs">{{Auth::user()->name}}</span>
                 </a>
                 <ul class="dropdown-menu">
@@ -67,6 +73,11 @@
     </header>
 
 
+
+
+
+
+
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -83,14 +94,20 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="treeview">
+                <li class="treeview">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                 <li><a href="#"><i class="fa fa-pencil"></i>Artikel</a></li>
+                <li><a href="{{route('category.index')}}"><i class="fa fa-book"></i>Category</a></li>
             </li>
         </ul>
         </section>
         <!-- /.sidebar -->
     </aside>
+
+
+
+
+
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -107,15 +124,26 @@
     </div>
   <!-- /.content-wrapper -->
 
+
+
+
+
+  
+
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b><a href="#">Laravel Blog</a></b>
     </div>
     <strong> <a href="#">Laravel Blog</a></strong>
   </footer>
+
+
+
+  
 <script src={{asset('plugins/jQuery/jquery-2.2.3.min.js')}}></script>
 <!-- Bootstrap 3.3.6 -->
 <script src={{asset("bootstrap/js/bootstrap.min.js")}}></script>
+@stack('datatables')
 <!-- SlimScroll -->
 <script src={{asset("plugins/slimScroll/jquery.slimscroll.min.js")}}></script>
 <!-- FastClick -->
@@ -124,5 +152,6 @@
 <script src={{asset("dist/js/app.min.js")}}></script>
 <!-- AdminLTE for demo purposes -->
 <script src={{asset("dist/js/demo.js")}}></script>
+@stack('customdatatables')
 </body>
 </html>
