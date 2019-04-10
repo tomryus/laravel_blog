@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Category;
+use App\Model\Article;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -13,6 +14,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $category = Category::latest()->get();
@@ -60,9 +66,14 @@ class CategoryController extends Controller
      * @param  \App\Model\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id_category)
     {
-        //
+        $category = Category::findOrFail($id_category);        
+        if ($category !==null){
+            $posts = Article::where('id_category',$id_category)->get();
+
+            return $posts;
+        }
     }
 
     /**

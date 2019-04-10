@@ -8,8 +8,11 @@ use \App\Model\Article;
 class Category extends Model
 {   
     protected $fillable =['nama_category', 'slug'];
-    public function articles()
+
+    public function article()
     {
-        return $this->belongsTo(Article::class, 'id_category', 'id');
+        return $this->HasMany(Article::class, 'id_category','id');
     }
+    
+    
 }

@@ -96,7 +96,7 @@
         <ul class="sidebar-menu">
                 <li class="treeview">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fa fa-pencil"></i>Artikel</a></li>
+                <li><a href={{route('article.index')}}><i class="fa fa-pencil"></i>Artikel</a></li>
                 <li><a href="{{route('category.index')}}"><i class="fa fa-book"></i>Category</a></li>
             </li>
         </ul>

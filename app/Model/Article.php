@@ -7,13 +7,16 @@ use \App\Model\Category;
 
 class Article extends Model
 {
-    //protected $fillable =[];
+    protected $fillable =['title','slug','body','id_category','picture'];
 
     
     public function Category()
     {
-        return $this->HasOne(Category::class , 'id_category', 'id');
+        return $this->belongsTo(Category::class , 'id_category', 'id');
         
+    }
+    public function getRouteKeyName(){
+        return 'slug' ;
     }
     
 }
